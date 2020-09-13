@@ -52,10 +52,9 @@ const requestWorks = () => {
 
     $.ajax({
         type: "GET",
-        url: "https://www.wribeiiro.com/api/works",
-        data: {},
+        //url: "https://wribeiiro.com/lumen-api/api/v1/work",
+        url: "http://localhost/lumen-api/api/v1/work",
         dataType: "JSON",
-        processData: false,
         crossDomain: true,
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
@@ -93,4 +92,18 @@ document.querySelector("#scroll-btn").addEventListener('click', () => {
 
 document.addEventListener("DOMContentLoaded", function(event) {
     requestWorks()
+    smoothClick()
 })
+
+function smoothClick() {
+    const navItemsMenu = document.querySelectorAll("a.nav-item")
+
+    navItemsMenu.forEach(el => el.addEventListener('click', item => {
+        item.preventDefault()
+        
+        const anchor = el.getAttribute("href")
+        const offsetTop = document.querySelector(anchor).offsetTop
+    
+        scroll({ top: offsetTop, behavior: 'smooth' })
+    }))
+}
